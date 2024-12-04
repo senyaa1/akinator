@@ -79,12 +79,14 @@ void guess(json_value_t* val)
 
 	if(elem->elem_cnt == 0)
 	{
-		printf("i have no fukcing idea!\n");
-		printf("what is it and how it is different?\n");
+		printf(RED "No questions left! Let's add new object!\n" RESET);
+		printf(WHITE "Enter name> " BLUE);
 		char* item = (char*)calloc(256, sizeof(char));
 		char* difference = (char*)calloc(256, sizeof(char));
 		scanf("%255s", item);
+		printf(RESET WHITE "Enter difference> " BLUE);
 		scanf("%255s", difference);
+		printf(RESET);
 
 		json_object_t* next = add_new_diff(elem, item, difference);
 		return;
