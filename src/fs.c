@@ -57,5 +57,3 @@ int write_file(const char* filepath, char* content, size_t size)
 
 	return 0;
 }
-
-
