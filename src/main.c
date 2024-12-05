@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 
 	while(1)
 	{
-		printf(WHITE "[g]uess     [d]efinition    [c]ompare    [d]raw graph    [q]uit\n" RESET);
+		printf(WHITE "[g]uess     [d]efinition    [c]ompare    [r]ender graph    [q]uit\n" RESET);
 		char res = getchar();
 
 		switch(res)

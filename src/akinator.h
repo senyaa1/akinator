@@ -5,6 +5,8 @@
 #define JSON_DB_PATH "db.json"
 #define GRAPH_IMG_PATH "graph.png"
 
+#define MIN(a, b) ((a < b) ? (a) : (b))
+
 typedef struct qualities
 {
 	char** strs;

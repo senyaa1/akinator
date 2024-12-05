@@ -1,30 +1,36 @@
 {
-	"real": {
-		"yes": "amogus",
+	"Is an Animal?": {
+		"yes": {
+			"Does it say woof?": {
+				"yes": {
+					"Is true?": {
+						"yes": "Kvadrober",
+						"no": "Random Dog"
+					}
+				},
+				"no": "My cat"
+			}
+		},
 		"no": {
-			"red": {
-				"yes": "it is red",
-				"no": {
-					"aa": {
-						"yes": "aa",
+			"Does know calculus?": {
+				"yes": {
+					"Does CHUVSTVUET?": {
+						"yes": "Redkozubych",
 						"no": {
-							"bb": {
-								"yes": "bb",
-								"no": {
-									"cc": {
-										"yes": "cc",
-										"no": {
-											"dd": {
-												"yes": "dd",
-												"no": {
-													"ee": {
-														"yes": "ee",
-														"no": {}
-													}
-												}
-											}
-										}
-									}
+							"Is it female?": {
+								"yes": "Yulia",
+								"no": "Stepa"
+							}
+						}
+					}
+				},
+				"no": {
+					"Lies that he is not a kvadrober?": {
+						"yes": "Ded",
+						"no": {
+							"Is known by Harry Potter?": {
+								"no": "Sanya",
+								"yes": {
 								}
 							}
 						}

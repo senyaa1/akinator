@@ -114,16 +114,22 @@ void guess(json_value_t* val)
 		printf("yes/no\n");
 	}
 }
-
-static void get_and_print_quals(json_object_t* root, char* to_find)
+static qualities_t get_quals(json_object_t* root, char* to_find)
 {
 	qualities_t qual = { .cnt = 0, .allocated = 16, .strs =  (char**)calloc(16, sizeof(char*))};
 
 	if(!search(root, to_find, 0, &qual))
 	{
 		printf(RED "Can't find this object!\n" RESET);
-		return;
+		return (qualities_t){0};
 	}
+
+	return qual;
+}
+
+static qualities_t get_and_print_quals(json_object_t* root, char* to_find)
+{
+	qualities_t qual = get_quals(root, to_find);
 
 	for(int i = qual.cnt - 1; i > 0; i -= 2)
 	{
@@ -142,7 +148,7 @@ static void get_and_print_quals(json_object_t* root, char* to_find)
 
 	printf("\n");
 
-	free(qual.strs);
+	return qual;
 }
 
 void definition(json_object_t* root)
@@ -153,7 +159,8 @@ void definition(json_object_t* root)
 	scanf("%255s", (char*)to_find);
 	printf(RESET);
 
-	get_and_print_quals(root, to_find);
+	qualities_t quals = get_and_print_quals(root, to_find);
+	free(quals.strs);
 }
 
 void compare(json_object_t* root)
@@ -169,6 +176,50 @@ void compare(json_object_t* root)
 	scanf("%255s", (char*)to_find2);
 	printf(RESET);
 
-	get_and_print_quals(root, to_find1);
-	get_and_print_quals(root, to_find2);
+	qualities_t qual1 = get_quals(root, to_find1);
+	qualities_t qual2 = get_quals(root, to_find2);
+
+	for(int i = 1; i < qual1.cnt; i += 2)
+	{
+		bool found_matching = false, has_info = false;
+		for(int j = 1; j < qual2.cnt; j += 2)
+		{
+			if(strcmp(qual1.strs[i], qual2.strs[j]) == 0)
+			{ 
+				has_info = true;
+				if(strcmp(qual1.strs[i - 1], qual2.strs[j - 1]) != 0)
+					break;
+
+				found_matching = true;
+
+				printf(BLUE "Similarities: Both ");
+				if(!strcmp(qual1.strs[i - 1], "yes"))
+ 				{
+					printf(GREEN "are %s" RESET, qual1.strs[i]);
+					break;
+				}
+				printf(RED "aren't %s\n" RESET, qual1.strs[i]);
+
+				break;
+			}
+		}
+		if(!found_matching && has_info)
+		{
+			printf(YELLOW "Difference: %s " RESET, to_find1);
+			if(!strcmp(qual1.strs[i - 1], "yes"))
+			{
+				printf(GREEN "is %s, while %s isn't!\n" RESET, qual1.strs[i], to_find2);
+			}
+			else 
+			{
+				printf(RED "is not %s, while %s is!\n" RESET, qual1.strs[i], to_find2);
+			}
+
+
+		}
+		// printf(BLUE "Differences: ");
+	}
+
+	free(qual1.strs);
+	free(qual2.strs);
 }
